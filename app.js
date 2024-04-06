@@ -7,6 +7,7 @@ var logger = require("morgan");
 const http = require("http");
 //call of .env para
 require("dotenv").config();
+//db connection
 const { connectToMongoDB } = require("./db/db.js");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
