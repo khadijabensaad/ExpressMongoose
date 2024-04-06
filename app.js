@@ -1,18 +1,18 @@
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
-var cookieParser = require("cookie-parser");  
+var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 //1st change
 const http = require("http");
 //call of .env para
 require("dotenv").config();
+const { connectToMongoDB } = require("./db/db.js");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var osRouter = require("./routes/os");
 
 var app = express();
-
-
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-
+app.use("/os", osRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -42,6 +42,7 @@ app.use(function (err, req, res, next) {
 const server = http.createServer(app);
 // OR server.listen(process.env.PORT, ()
 server.listen(5000, () => {
+  connectToMongoDB();
   console.log("app is running on port 5000");
 });
 //module.exports = app; khater maatich run 3al bin
