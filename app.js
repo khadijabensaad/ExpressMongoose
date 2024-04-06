@@ -5,6 +5,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 //1st change
 const http = require("http");
+//call of .env para
+require("dotenv").config();
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
@@ -38,6 +40,7 @@ app.use(function (err, req, res, next) {
 });
 //2nd change
 const server = http.createServer(app);
+// OR server.listen(process.env.PORT, ()
 server.listen(5000, () => {
   console.log("app is running on port 5000");
 });
